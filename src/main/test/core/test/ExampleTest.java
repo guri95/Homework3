@@ -30,4 +30,10 @@ public class ExampleTest {
         this.admin.createClass("Test", 2016, "Instructor", 15);
         assertFalse(this.admin.classExists("Test", 2016));
     }
+    @Test
+    public void testMakeClass3() {
+        this.admin.createClass("Test", 2017, "Instructor", -1);
+        assertFalse(this.admin.classExists("Test", 2017));
+    }
+   
 }
