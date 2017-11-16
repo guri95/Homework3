@@ -68,9 +68,9 @@ public class TestStudent {
 	 @Test
 	    public void register4() { 
 	    	//to check student register for not existing class//!!!! corner case
-		 	this.admin.createClass("ecs60",2017,"sean",2);
-		 	this.student.registerForClass("gurender1", "ecs60", 2017);
-	        assertFalse(this.student.isRegisteredFor("gurender1", "ecs154", 2017));
+		 	this.admin.createClass("ecs61",2017,"sean",2);
+		 	this.student.registerForClass("gurender", "ecs60", 2017);
+	        assertFalse(this.student.isRegisteredFor("gurender", "ecs61", 2017));
 	      
 	    }
 	 @Test
@@ -105,19 +105,10 @@ public class TestStudent {
 	    	//to check student get drop from a past class 
 		 	this.admin.createClass("ecs60",2016,"sean",4);
 		 	this.student.registerForClass("gurender", "ecs60", 2016);
-		 	this.student.dropClass("gurender", "ecs60", 2017);
-	        assertFalse(this.student.isRegisteredFor("gurender", "ecs60", 2017));
+		 	this.student.dropClass("gurender", "ecs60", 2016);
+	        assertFalse(this.student.isRegisteredFor("gurender", "ecs60", 2016));
 	       // assertTrue(this.student.hasSubmitted("gurender", "p1", "ecs60", 2017));
 	       
-	    }
-	 @Test
-	 public void isRegisterIfdroped3() {  
-	    	//to check student get drop from a class which ends a year before
-		 	this.admin.createClass("ecs60",2017,"sean",4);
-		 	this.student.registerForClass("gurender", "ecs60", 2017);		 
-		 	this.student.dropClass("gurender", "ecs60", 2018);
-	        assertFalse(this.student.isRegisteredFor("gurender", "ecs60", 2018));
-
 	    }
 	//*********************submitHomework class*******************************
 	 
@@ -143,26 +134,25 @@ public class TestStudent {
 	 @Test
 	    public void hasSubmitted2() {
 	    	// to check the hw is submitted for a class with don't even exists: corner case
-	    	//this.admin.createClass("ecs60",2017,"sean",50);
+	    	this.admin.createClass("ecs60",2017,"sean",50);
 	    	this.student.registerForClass("gurender", "ecs60", 2017);
 	        this.instructor.addHomework("sean", "ecs60", 2017, "p1");
-	        this.student.submitHomework("gurender", "p1", "abc", "ecs60", 2017); 
-	      assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs60", 2017));
+	        this.student.submitHomework("gurender", "p1", "abc", "ecs61", 2017); 
+	      assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs61", 2017));
 	    }
 	 @Test
 	    public void hasSubmitted3() {
 	    	// test of the hw is submitted for a class before he/she dropped: corner case
 	    	this.admin.createClass("ecs60",2017,"sean",50);
 	    	this.student.registerForClass("gurender", "ecs60", 2017);
-	       this.instructor.addHomework("sean", "ecs60", 2017, "p1");
+	        this.instructor.addHomework("sean", "ecs60", 2017, "p1");
 	        this.student.submitHomework("gurender", "p1", "abc", "ecs60", 2017);
 	        this.student.dropClass("gurender", "ecs60", 2017);
-	     //   assertFalse(this.student.isRegisteredFor("gurender", "ecs60", 2018));
-		    assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs60", 2017));
+	       assertTrue(this.student.hasSubmitted("gurender", "p1", "ecs60", 2017));
 	    }
 	 @Test
 	    public void hasSubmitted4() {
-	    	// test of the hw is submitted for a class after he/she dropped: corner case
+	    	// test of the hw is submitted for a class after he/she dropped: corner case BUG
 	    	this.admin.createClass("ecs60",2017,"sean",50);
 	    	this.student.registerForClass("gurender", "ecs60", 2017);
 	    	this.student.dropClass("gurender", "ecs60", 2017);
@@ -188,19 +178,15 @@ public class TestStudent {
 	    	// test of the hw is submitted to a class in future
 	    	this.admin.createClass("ecs60",2019,"sean",50);
 	    	this.student.registerForClass("gurender", "ecs60", 2019);
-	    	//this.student.dropClass("gurender", "ecs60", 2017);
 	        this.instructor.addHomework("sean", "ecs60", 2019, "p1");
 	        this.student.submitHomework("gurender", "p1", "abc", "ecs60", 2019);
-	       
-	     //   assertFalse(this.student.isRegisteredFor("gurender", "ecs60", 2018));
-		    assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs60", 2019));
+	        assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs60", 2019));
 	    }
 	 @Test
 	    public void hasSubmitted7() {
 	    	// test of the hw is submitted to a class in past
 	    	this.admin.createClass("ecs60",2015,"sean",50);
 	    	this.student.registerForClass("gurender", "ecs60", 2015);
-	    	//this.student.dropClass("gurender", "ecs60", 2017);
 	        this.instructor.addHomework("sean", "ecs60", 2015, "p1");
 	        this.student.submitHomework("gurender", "p1", "abc", "ecs60", 2015);
 	        assertFalse(this.student.hasSubmitted("gurender", "p1", "ecs60", 2015));

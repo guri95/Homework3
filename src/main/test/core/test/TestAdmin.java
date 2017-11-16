@@ -149,7 +149,6 @@ public class TestAdmin {
     public void changeCapacity5() {
         //check not changing the capacity of class which is not created yet
      	//corner case
-    	//int oldCapacity=this.admin.getClassCapacity("ECS161",2017);
         this.admin.changeCapacity("ECS160", 2017, 16);
                
         assertFalse(this.admin.classExists("ECS160", 2017));

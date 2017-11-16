@@ -52,32 +52,26 @@ public class TestInstructor {
     @Test
     public void homeworkExists2() {
       //test of instructor adding homework to a class he does not teach corner case
-      //this.admin.createClass("ecs60",2017,"sean",50);
-        this.instructor.addHomework("sean", "ecs60", 2017, "p1");
-        assertFalse(this.instructor.homeworkExists("ecs60", 2017, "p1"));
+        this.admin.createClass("ecs60",2017,"sean",50);
+        this.instructor.addHomework("sean", "ecs61", 2017, "p1");
+        assertFalse(this.instructor.homeworkExists("ecs61", 2017, "p1"));
     }
     
     @Test
     public void homeworkExists3() {
     	// test of instructor adding homework to a class he teach in past
-    	this.admin.createClass("ecs60",2017,"sean",50);
+    	this.admin.createClass("ecs60",2016,"sean",50);
         this.instructor.addHomework("sean", "ecs60", 2016, "p1");
         assertFalse(this.instructor.homeworkExists("ecs61", 2016, "p1"));
     }
     @Test
     public void homeworkExists4() {
     	// test of instructor adding homework to a class he'll teach in future
-    	this.admin.createClass("ecs60",2017,"sean",50);
+    	this.admin.createClass("ecs60",2018,"sean",50);
         this.instructor.addHomework("sean", "ecs60", 2018, "p1");
         assertFalse(this.instructor.homeworkExists("ecs61", 2018, "p1"));
     }
-    @Test
-    public void homeworkExists5() {
-    	// test of instructor adding homework to a class he'll teach in future
-    	this.instructor.addHomework("sean", "ecs60", 2017, "p1");
-        this.instructor.addHomework("sean2", "ecs60", 2017, "p1");
-        assertFalse(this.instructor.homeworkExists("ecs60", 2017, "p1"));
-    }
+    
   
     
 //************assignGrade**************************
@@ -93,13 +87,12 @@ public class TestInstructor {
     }
     @Test
     public void assignGrade1() {
-    	//!!!!Instructor is not assign  so grades does not exists and everything else is same 
-    	//this.admin.createClass("ecs60",2017,"sean",50);
+    	//Bug !!!!Instructor is not assign  so grades does not exists and everything else is same 
+    	this.admin.createClass("ecs60",2017,"sean",50);
     	this.student.registerForClass("gurender", "ecs60", 2017);
         this.instructor.addHomework("sean", "ecs60", 2017, "p1");
         this.student.submitHomework("gurender", "p1", "abc", "ecs60", 2017);        
-        this.instructor.assignGrade("sean", "ecs60", 2017, "p1", "gurender", 80);
-    //  assertFalse((int)this.instructor.getGrade("ecs60", 2017, "p1", "gurender")==80);
+        this.instructor.assignGrade("sean2", "ecs60", 2017, "p1", "gurender", 80);
         assertNull(this.instructor.getGrade("ecs60", 2017, "p1", "gurender"));
     }
 

@@ -47,6 +47,12 @@ public class TestCourseManager {
 		this.courseManager.createClass("ECS161", 2017, "Instructor", 1);
 		this.courseManager.createClass("ECS161", 2017, "Instructor2", 1);
 		
+	}
+	@Test
+	public void capacityNotLessThan0() {
+		Mockito.doCallRealMethod().doNothing().when(this.admin).createClass(Mockito.anyString(), Mockito.anyInt(), Mockito.anyString(), AdditionalMatchers.lt(1));
+		//this.courseManager.createClass("ECS161", 2017, "Instructor", 1);
+	//	this.courseManager.createClass("ECS161", 2017, "Instructor2", 1);
 		
 	}
 	@Test
